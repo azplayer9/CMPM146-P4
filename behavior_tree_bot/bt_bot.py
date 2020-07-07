@@ -39,12 +39,12 @@ def setup_behavior_tree():
     spread_action = Action(spread_to_nearest_neutral_planet)
     spread_sequence.child_nodes = [neutral_planet_check, spread_action]
 
-    defense_sequence = Sequence(name='Regroup Strategy')
-    calculate_difference = Check(if_my_strongest_is_stronger)
+    defense_sequence = Sequence(name='Defense Strategy')
+    multiple_planet_check = Check(if_have_multiple_planets)
     redistribute_action = Action(strongest_to_weakest)
-    defense_sequence.child_nodes = [calculate_difference, redistribute_action]
+    defense_sequence.child_nodes = [multiple_planet_check, redistribute_action]
 
-    root.child_nodes = [offensive_plan, spread_sequence, attack_closest.copy()]
+    root.child_nodes = [offensive_plan, spread_sequence, defense_sequence, attack_closest.copy()]
 
     logging.info('\n' + root.tree_to_string())
     return root

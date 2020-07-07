@@ -102,12 +102,11 @@ def closest_neutral(state, source_planet, neutral_planets):
         return None
 
 def strongest_to_weakest(state):
-    if len(state.my_fleets()) >= len(state.my_planets())/10: # choose a harder condition to decentivize this action
+    if len(state.my_fleets()) >= len(state.my_planets())/3: # choose a harder condition to decentivize this action
         return False
 
-    # (2) Find my strongest planet.
     strongest_planet = max(state.my_planets(), key=lambda p: p.num_ships, default=None)
     weakest_planet = min(state.my_planets(), key=lambda p: p.num_ships, default=None)
 
-    # send some from strongest planet to the weakest planet
-    return issue_order(state, strongest_planet.ID, weakest_planet.ID, strongest_planet.num_ships / 3)
+    # send some ships from strongest planet to the weakest planet
+    return issue_order(state, strongest_planet.ID, weakest_planet.ID, strongest_planet.num_ships/4)

@@ -8,8 +8,5 @@ def have_largest_fleet(state):
          > sum(planet.num_ships for planet in state.enemy_planets()) \
          + sum(fleet.num_ships for fleet in state.enemy_fleets())
 
-def if_my_strongest_is_stronger(state):
-    strongest_ally = max(state.my_planets(), key=lambda p: p.num_ships, default=None)
-    strongest_enemy = max(state.enemy_planets(), key=lambda p: p.num_ships, default=None)
-    return strongest_ally.num_ships > strongest_enemy.num_ships
-
+def if_have_multiple_planets(state):
+    return (len(state.my_planets()) >= 2)
